@@ -515,6 +515,7 @@ uint32_t GetStakeModifierChecksum(const CBlockIndex* pindex)
 // Check stake modifier hard checkpoints
 bool CheckStakeModifierCheckpoints(int nHeight, uint32_t nStakeModifierChecksum)
 {
+    return true; // Remove this line after generating the genesis block and getting the modifierchecksum
     MapModifierCheckpoints& checkpoints = (fTestNet ? mapStakeModifierCheckpointsTestNet : mapStakeModifierCheckpoints);
 
     if (checkpoints.count(nHeight))
