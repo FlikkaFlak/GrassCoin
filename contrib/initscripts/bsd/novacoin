@@ -1,0 +1,68 @@
+#!/bin/sh
+
+# PROVIDE: GrassCoin
+# REQUIRE: LOGIN
+# KEYWORD: shutdown
+
+#
+# Add the following lines to /etc/rc.conf.local or /etc/rc.conf
+# to enable this service:
+#
+# LuminosityCoin_enable (bool): Set to NO by default. Set this variable to YES if you want to enable GrassCoin service.
+# LuminosityCoin_config (path): Set to /usr/local/etc/GrassCoin.conf by default.
+# LuminosityCoin_user:  The user account GrassCoin daemon runs as. It uses 'root' user by default.
+# LuminosityCoin_group: The group account GrassCoin daemon runs as. It uses 'wheel' group by default.
+# LuminosityCoin_datadir (str): Default to "/var/db/GrassCoin". Base data directory.
+
+. /etc/rc.subr
+
+name=GrassCoin
+rcvar=LuminosityCoin_enable
+
+: ${LuminosityCoin_enable:=NO}
+: ${LuminosityCoin_config=/usr/local/etc/GrassCoin.conf}
+: ${LuminosityCoin_datadir=/var/db/GrassCoin}
+: ${LuminosityCoin_user="root"}
+: ${LuminosityCoin_group="wheel"}
+
+required_files=${LuminosityCoin_config}
+command=/usr/local/bin/GrassCoind
+LuminosityCoin_chdir=${LuminosityCoin_datadir}
+pidfile="${LuminosityCoin_datadir}/GrassCoind.pid"
+stop_cmd=LuminosityCoin_stop
+command_args="-conf=${LuminosityCoin_config} -datadir=${LuminosityCoin_datadir} -daemon -pid=${pidfile}"
+start_precmd="${name}_prestart"
+
+LuminosityCoin_create_datadir()
+{
+	echo "Creating data directory"
+	eval mkdir -p ${LuminosityCoin_datadir}
+	[ $? -eq 0 ] && chown -R ${LuminosityCoin_user}:${LuminosityCoin_group} ${LuminosityCoin_datadir}
+}
+
+LuminosityCoin_prestart()
+{
+	if [ ! -d "${LuminosityCoin_datadir}/." ]; then
+		LuminosityCoin_create_datadir || return 1
+	fi
+}
+
+LuminosityCoin_requirepidfile()
+{
+	if [ ! "0`check_pidfile ${pidfile} ${command}`" -gt 1 ]; then
+		echo "${name} not running? (check $pidfile)."
+		exit 1
+	fi
+}
+
+LuminosityCoin_stop()
+{
+    LuminosityCoin_requirepidfile
+
+	echo "Stopping ${name}."
+	eval ${command} -conf=${LuminosityCoin_config} -datadir=${LuminosityCoin_datadir} stop
+	wait_for_pids ${rc_pid}
+}
+
+load_rc_config $name
+run_rc_command "$1"

@@ -1,0 +1,2 @@
+debian/bin/GrassCoind usr/bin
+src/GrassCoind usr/lib/GrassCoin

@@ -1,0 +1,11 @@
+[Unit]
+Description=GrassCoin daemon serivce
+After=network.target
+
+[Service]
+Type=simple
+User=GrassCoin
+ExecStart=/opt/GrassCoin/GrassCoind
+
+[Install]
+WantedBy=multi-user.target

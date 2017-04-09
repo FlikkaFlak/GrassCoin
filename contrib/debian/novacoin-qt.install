@@ -1,0 +1,5 @@
+GrassCoin-qt usr/bin
+share/pixmaps/LuminosityCoin32.xpm usr/share/pixmaps
+share/pixmaps/LuminosityCoin80.xpm usr/share/pixmaps
+debian/GrassCoin-qt.desktop usr/share/applications
+debian/GrassCoin-qt.protocol usr/share/kde4/services/

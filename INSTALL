@@ -1,0 +1,9 @@
+Building GrassCoin
+
+See doc/readme-qt.rst for instructions on building GrassCoin Qt,
+the intended-for-end-users, nice-graphical-interface, reference
+implementation of GrassCoin.
+
+See doc/build-*.txt for instructions on building GrassCoind,
+the intended-for-services, no-graphical-interface, reference
+implementation of GrassCoin.

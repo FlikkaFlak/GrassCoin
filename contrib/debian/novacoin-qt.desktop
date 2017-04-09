@@ -1,0 +1,13 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=GrassCoin
+Comment=GrassCoin P2P Cryptocurrency
+Comment[ru]=GrassCoin, P2P криптовалюта
+Comment[fr]=GrassCoin, monnaie virtuelle cryptographique pair à pair
+Comment[tr]=GrassCoin, eşten eşe kriptografik sanal para birimi
+Exec=/usr/bin/GrassCoin-qt
+Terminal=false
+Type=Application
+Icon=/usr/share/pixmaps/LuminosityCoin80.xpm
+MimeType=x-scheme-handler/GrassCoin;
+Categories=Office;
